@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/card';
 import { ArrowRight, ArrowLeft, CheckCircle } from 'lucide-react';
-import "../app/globals.css";
+// import "../app/globals.css";
 
 const MaturityWizard = () => {
   const [currentStep, setCurrentStep] = useState(0);
