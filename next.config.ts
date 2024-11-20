@@ -4,7 +4,7 @@ const nextConfig = {
   output: 'standalone',  // Wichtig für Vercel
   reactStrictMode: true,
   trailingSlash: false, // Keine überflüssigen Slashes
-  swcMinify: true,
+  // swcMinify: true,
   async headers() {
     return [
       {
