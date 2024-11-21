@@ -21,7 +21,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             <div className="flex items-center">
               <ModernLogo />
               <div className="flex flex-col">
-                <h1 className="text-xl font-bold text-gray-900">Make AI happen</h1>
+                <h1 className="text-xl font-bold text-gray-900">Make AI happen 🤖 </h1>
                 <span className="text-sm text-gray-500 hidden sm:block">The Art of AI Transformation</span>
               </div>
             </div>
@@ -180,7 +180,7 @@ const MaturityWizard = () => {
   const [showWelcome, setShowWelcome] = useState(true);
 
 
-    // Handler für den Start-Button
+  // Handler für den Start-Button
   const handleStart = () => {
     setShowWelcome(false);
   };
@@ -261,7 +261,7 @@ const MaturityWizard = () => {
             htmlFor="consent" 
             className="text-sm leading-tight"
           >
-            Ich willige ein, dass meine Daten gemäß der Datenschutzerklärung gespeichert und verarbeitet werden dürfen. 
+            Ich willige ein, dass meine Daten gemäss der Datenschutzerklärung gespeichert und verarbeitet werden dürfen. 
             Die Einwilligung kann jederzeit widerrufen werden. *
           </Label>
         </div>
@@ -390,7 +390,7 @@ const MaturityWizard = () => {
               htmlFor="consent"
               className="text-sm leading-tight cursor-pointer"
             >
-              Ich willige ein, dass meine Daten gemäß der Datenschutzerklärung gespeichert und verarbeitet werden dürfen.
+              Ich willige ein, dass meine Daten gemäss der Datenschutzerklärung gespeichert und verarbeitet werden dürfen.
               Die Einwilligung kann jederzeit widerrufen werden. *
             </Label>
           </div>
@@ -428,7 +428,7 @@ const MaturityWizard = () => {
 
   const stages = [
     {
-      title: "Phase 1: Erkundung 👀",
+      title: "Phase 1: Erkundung 🔍 ",
       questions: [
         "Haben Sie bereits KI Use Cases identifiziert?",
         "Gibt es ein grundlegendes Verständnis von KI im Management?",
@@ -437,7 +437,7 @@ const MaturityWizard = () => {
       ]
     },
     {
-      title: "Phase 2: Experimentieren 🔬",
+      title: "Phase 2: Experimentieren 🧪 ",
       questions: [
         "Laufen bereits erste Proof of Concepts?",
         "Gibt es ein Budget für KI-Pilotprojekte?",
@@ -446,7 +446,7 @@ const MaturityWizard = () => {
       ]
     },
     {
-      title: "Phase 3: Formalisierung 🚩",
+      title: "Phase 3: Formalisierung 📊 ",
       questions: [
         "Gibt es standardisierte Prozesse für KI-Projekte?",
         "Existiert eine KI-Governance?",
@@ -455,7 +455,7 @@ const MaturityWizard = () => {
       ]
     },
     {
-      title: "Phase 4: Transformation 🚀",
+      title: "Phase 4: Transformation 🦋 ",
       questions: [
         "Ist KI Teil der Unternehmensstrategie?",
         "Gibt es eine KI-getriebene Kultur?",
@@ -572,6 +572,8 @@ const MaturityWizard = () => {
     </div>
   );
 
+  // Im MaturityWizard Component, passe den Return-Block an:
+
   return (
     <Layout>
       <Card className="w-full max-w-4xl mx-auto">
@@ -581,7 +583,7 @@ const MaturityWizard = () => {
           </CardTitle>
         </CardHeader>
         <CardContent>
-        {showWelcome ? (
+          {showWelcome ? (
             <WelcomeStep onStart={handleStart} />
           ) : !showContactForm && !showResults ? (
             <>
@@ -592,11 +594,11 @@ const MaturityWizard = () => {
               <div className="flex justify-between mt-4">
                 <Button
                   variant="outline"
-                  onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
-                  disabled={currentStep === 0}
+                  onClick={() => currentStep === 0 ? setShowWelcome(true) : setCurrentStep(currentStep - 1)}
+                  disabled={false} // Entferne disabled={currentStep === 0}
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
-                  Zurück
+                  {currentStep === 0 ? 'Zum Start' : 'Zurück'}
                 </Button>
                 {currentStep < stages.length - 1 ? (
                   <Button
@@ -607,7 +609,7 @@ const MaturityWizard = () => {
                   </Button>
                 ) : (
                   <Button onClick={handleAssessmentComplete}>
-                    Assessment abschließen
+                    Assessment abschliessen
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 )}
