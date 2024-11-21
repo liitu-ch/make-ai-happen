@@ -296,7 +296,6 @@ const MaturityWizard = () => {
   ); */
 
   const ContactForm = () => {
-    // Lokaler State für das Formular
     const [formData, setFormData] = useState({
       name: contactData.name,
       email: contactData.email,
@@ -305,25 +304,42 @@ const MaturityWizard = () => {
       consent: contactData.consent
     });
 
-    // Handler für das Formular-Submit
-    const handleSubmit = (e: React.FormEvent) => {
-      e.preventDefault();
-      if (isContactFormValid()) {
-        setContactData(formData); // Update den globalen State
-        setShowResults(true);
-      } else {
-        alert('Bitte füllen Sie alle Pflichtfelder aus und akzeptieren Sie die Datenschutzerklärung.');
+    const isFormValid = () => {
+      const errors = {
+        name: formData.name.trim() === '',
+        email: !formData.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/),
+        company: formData.company.trim() === '',
+        consent: !formData.consent
+      };
+
+      const hasErrors = Object.values(errors).some(error => error);
+      
+      if (hasErrors) {
+        const errorMessages = {
+          name: 'Bitte geben Sie Ihren Namen ein.',
+          email: 'Bitte geben Sie eine gültige E-Mail-Adresse ein.',
+          company: 'Bitte geben Sie Ihr Unternehmen ein.',
+          consent: 'Bitte akzeptieren Sie die Datenschutzerklärung.'
+        };
+
+        const activeErrors = Object.entries(errors)
+          .filter(([_, hasError]) => hasError)
+          .map(([field]) => errorMessages[field as keyof typeof errorMessages]);
+
+        alert(activeErrors.join('\n'));
+        return false;
       }
+
+      return true;
     };
 
-    // Validierung mit lokalem State
-    const isFormValid = () => {
-      return (
-        formData.name.trim() !== '' &&
-        formData.email.trim() !== '' &&
-        formData.company.trim() !== '' &&
-        formData.consent
-      );
+    const handleSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+      
+      if (isFormValid()) {
+        setContactData(formData);
+        setShowResults(true);
+      }
     };
 
     return (
@@ -390,7 +406,7 @@ const MaturityWizard = () => {
               htmlFor="consent"
               className="text-sm leading-tight cursor-pointer"
             >
-              Ich willige ein, dass meine Daten gemäss der Datenschutzerklärung gespeichert und verarbeitet werden dürfen.
+              Ich willige ein, dass meine Daten gemäß der Datenschutzerklärung gespeichert und verarbeitet werden dürfen.
               Die Einwilligung kann jederzeit widerrufen werden. *
             </Label>
           </div>
@@ -410,7 +426,6 @@ const MaturityWizard = () => {
 
           <Button
             type="submit"
-            disabled={!isFormValid()}
           >
             Ergebnisse anzeigen
             <ArrowRight className="w-4 h-4 ml-2" />
@@ -418,13 +433,35 @@ const MaturityWizard = () => {
         </div>
       </form>
     );
-  };
-
+};
 
   // Handler für die Fertigstellung des Assessments
   const handleAssessmentComplete = () => {
     setShowContactForm(true);
   };
+
+  const industryAverages = [
+    {
+      phase: "Erkundung 🔍",
+      average: 65,
+      description: "Die meisten Unternehmen haben bereits erste KI Use Cases identifiziert und ein grundlegendes Verständnis aufgebaut."
+    },
+    {
+      phase: "Experimentieren 🧪",
+      average: 45,
+      description: "Etwa die Hälfte der Unternehmen führt erste Proof of Concepts durch und experimentiert mit KI-Lösungen."
+    },
+    {
+      phase: "Formalisierung 📊",
+      average: 30,
+      description: "Standardisierte Prozesse und Governance-Strukturen sind bei einem Drittel der Unternehmen etabliert."
+    },
+    {
+      phase: "Transformation 🦋",
+      average: 15,
+      description: "Nur wenige Unternehmen haben KI bereits vollständig in ihre Geschäftsprozesse integriert."
+    }
+  ];
 
   const stages = [
     {
@@ -549,28 +586,96 @@ const MaturityWizard = () => {
     </div>
   );
 
-  const renderSummary = () => (
-    <div className="space-y-4">
-      <h2 className="text-xl font-bold mb-4">Zusammenfassung</h2>
-      {stages.map((stage, index) => {
-        const maturity = calculateStageMaturity(index);
-        return (
-          <div key={index} className="p-4 bg-gray-50 rounded-lg">
-            <h3 className="font-bold">{stage.title}</h3>
-            <div className="flex items-center mt-2">
+// Ersetze die renderSummary Funktion
+const renderSummary = () => (
+  <div className="space-y-8">
+    <div>
+      <h2 className="text-2xl font-bold mb-4">Ihre KI-Reife im Überblick</h2>
+      <p className="text-gray-600 mb-6">
+        Vergleichen Sie Ihre Ergebnisse mit dem Branchendurchschnitt.
+      </p>
+    </div>
+
+    {stages.map((stage, index) => {
+      const maturity = calculateStageMaturity(index);
+      const industryAvg = industryAverages[index];
+
+      return (
+        <div key={index} className="p-6 bg-gray-50 rounded-lg space-y-4">
+          <h3 className="text-xl font-bold">{stage.title}</h3>
+          
+          <div className="space-y-4">
+            {/* Ihr Ergebnis */}
+            <div>
+              <div className="flex justify-between mb-2">
+                <span className="text-sm font-medium">Ihr Ergebnis</span>
+                <span className="text-sm font-medium">{maturity}%</span>
+              </div>
               <div className="w-full bg-gray-200 rounded-full h-2.5">
                 <div
                   className="bg-blue-600 h-2.5 rounded-full"
                   style={{ width: `${maturity || 0}%` }}
-                ></div>
+                />
               </div>
-              <span className="ml-2">{maturity}%</span>
+            </div>
+
+            {/* Branchendurchschnitt */}
+            <div>
+              <div className="flex justify-between mb-2">
+                <span className="text-sm font-medium">Branchendurchschnitt</span>
+                <span className="text-sm font-medium">{industryAvg.average}%</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2.5">
+                <div
+                  className="bg-gray-600 h-2.5 rounded-full"
+                  style={{ width: `${industryAvg.average}%` }}
+                />
+              </div>
+            </div>
+
+            {/* Vergleich und Einordnung */}
+            <div className="mt-4 p-4 bg-white rounded-lg border border-gray-200">
+              <p className="text-gray-600">{industryAvg.description}</p>
+              <div className="mt-3 text-sm">
+                {maturity && maturity > industryAvg.average ? (
+                  <div className="text-green-600 font-medium">
+                    ✨ Sie liegen über dem Branchendurchschnitt
+                  </div>
+                ) : maturity && maturity === industryAvg.average ? (
+                  <div className="text-blue-600 font-medium">
+                    📊 Sie liegen im Branchendurchschnitt
+                  </div>
+                ) : (
+                  <div className="text-orange-600 font-medium">
+                    💡 Hier besteht Entwicklungspotenzial
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        );
-      })}
+        </div>
+      );
+    })}
+
+    {/* Gesamtbewertung */}
+    <div className="p-6 bg-blue-50 rounded-lg">
+      <h3 className="text-xl font-bold mb-4">Gesamtbewertung</h3>
+      <p className="text-gray-700">
+        Basierend auf Ihrer Bewertung haben Sie bereits wichtige Schritte in Ihrer KI-Reise unternommen. 
+        Nutzen Sie die identifizierten Entwicklungspotenziale, um Ihre KI-Fähigkeiten weiter auszubauen.
+      </p>
+      <div className="mt-4">
+        <Button
+          onClick={() => window.location.href = 'mailto:info@liitu.ch?subject=KI-Reifegradanalyse%20Auswertung'}
+          className="mt-2"
+        >
+          Beratungsgespräch vereinbaren
+          <ArrowRight className="w-4 h-4 ml-2" />
+        </Button>
+      </div>
     </div>
-  );
+  </div>
+);
 
   // Im MaturityWizard Component, passe den Return-Block an:
 
@@ -619,17 +724,16 @@ const MaturityWizard = () => {
             <ContactForm />
           ) : (
             <>
-              {renderSummary()}
-              {renderReflection()}
-              <Button
-                variant="outline"
-                onClick={() => setShowContactForm(true)}
-                className="mt-4"
-              >
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Zurück zum Kontaktformular
-              </Button>
-            </>
+            {renderSummary()}
+            <Button
+              variant="outline"
+              onClick={() => setShowContactForm(true)}
+              className="mt-4"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Zurück zum Kontaktformular
+            </Button>
+          </>
           )}
         </CardContent>
       </Card>
