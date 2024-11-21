@@ -6,8 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
-import ModernLogo from '@/components/modernLogo';
-
+// import ModernLogo from '@/components/modernLogo';
+import Image from 'next/image';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,7 +19,15 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <ModernLogo />
+             {/* <ModernLogo />*/}
+              <Image
+                src="/images/logo.jpg"
+                alt="Make AI Happen Logo"
+                width={40}
+                height={40}
+                className="mr-3"
+                priority
+              />
               <div className="flex flex-col">
                 <h1 className="text-xl font-bold text-gray-900">Make AI happen 🤖 </h1>
                 <span className="text-sm text-gray-500 hidden sm:block">The Art of AI Transformation</span>
@@ -313,7 +321,7 @@ const MaturityWizard = () => {
       };
 
       const hasErrors = Object.values(errors).some(error => error);
-      
+
       if (hasErrors) {
         const errorMessages = {
           name: 'Bitte geben Sie Ihren Namen ein.',
@@ -335,7 +343,7 @@ const MaturityWizard = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
-      
+
       if (isFormValid()) {
         setContactData(formData);
         setShowResults(true);
@@ -433,7 +441,7 @@ const MaturityWizard = () => {
         </div>
       </form>
     );
-};
+  };
 
   // Handler für die Fertigstellung des Assessments
   const handleAssessmentComplete = () => {
@@ -586,96 +594,96 @@ const MaturityWizard = () => {
     </div>
   );
 
-// Ersetze die renderSummary Funktion
-const renderSummary = () => (
-  <div className="space-y-8">
-    <div>
-      <h2 className="text-2xl font-bold mb-4">Ihre KI-Reife im Überblick</h2>
-      <p className="text-gray-600 mb-6">
-        Vergleichen Sie Ihre Ergebnisse mit dem Branchendurchschnitt.
-      </p>
-    </div>
+  // Ersetze die renderSummary Funktion
+  const renderSummary = () => (
+    <div className="space-y-8">
+      <div>
+        <h2 className="text-2xl font-bold mb-4">Ihre KI-Reife im Überblick</h2>
+        <p className="text-gray-600 mb-6">
+          Vergleichen Sie Ihre Ergebnisse mit dem Branchendurchschnitt.
+        </p>
+      </div>
 
-    {stages.map((stage, index) => {
-      const maturity = calculateStageMaturity(index);
-      const industryAvg = industryAverages[index];
+      {stages.map((stage, index) => {
+        const maturity = calculateStageMaturity(index);
+        const industryAvg = industryAverages[index];
 
-      return (
-        <div key={index} className="p-6 bg-gray-50 rounded-lg space-y-4">
-          <h3 className="text-xl font-bold">{stage.title}</h3>
-          
-          <div className="space-y-4">
-            {/* Ihr Ergebnis */}
-            <div>
-              <div className="flex justify-between mb-2">
-                <span className="text-sm font-medium">Ihr Ergebnis</span>
-                <span className="text-sm font-medium">{maturity}%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2.5">
-                <div
-                  className="bg-blue-600 h-2.5 rounded-full"
-                  style={{ width: `${maturity || 0}%` }}
-                />
-              </div>
-            </div>
+        return (
+          <div key={index} className="p-6 bg-gray-50 rounded-lg space-y-4">
+            <h3 className="text-xl font-bold">{stage.title}</h3>
 
-            {/* Branchendurchschnitt */}
-            <div>
-              <div className="flex justify-between mb-2">
-                <span className="text-sm font-medium">Branchendurchschnitt</span>
-                <span className="text-sm font-medium">{industryAvg.average}%</span>
+            <div className="space-y-4">
+              {/* Ihr Ergebnis */}
+              <div>
+                <div className="flex justify-between mb-2">
+                  <span className="text-sm font-medium">Ihr Ergebnis</span>
+                  <span className="text-sm font-medium">{maturity}%</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2.5">
+                  <div
+                    className="bg-blue-600 h-2.5 rounded-full"
+                    style={{ width: `${maturity || 0}%` }}
+                  />
+                </div>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2.5">
-                <div
-                  className="bg-gray-600 h-2.5 rounded-full"
-                  style={{ width: `${industryAvg.average}%` }}
-                />
-              </div>
-            </div>
 
-            {/* Vergleich und Einordnung */}
-            <div className="mt-4 p-4 bg-white rounded-lg border border-gray-200">
-              <p className="text-gray-600">{industryAvg.description}</p>
-              <div className="mt-3 text-sm">
-                {maturity && maturity > industryAvg.average ? (
-                  <div className="text-green-600 font-medium">
-                    ✨ Sie liegen über dem Branchendurchschnitt
-                  </div>
-                ) : maturity && maturity === industryAvg.average ? (
-                  <div className="text-blue-600 font-medium">
-                    📊 Sie liegen im Branchendurchschnitt
-                  </div>
-                ) : (
-                  <div className="text-orange-600 font-medium">
-                    💡 Hier besteht Entwicklungspotenzial
-                  </div>
-                )}
+              {/* Branchendurchschnitt */}
+              <div>
+                <div className="flex justify-between mb-2">
+                  <span className="text-sm font-medium">Branchendurchschnitt</span>
+                  <span className="text-sm font-medium">{industryAvg.average}%</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2.5">
+                  <div
+                    className="bg-gray-600 h-2.5 rounded-full"
+                    style={{ width: `${industryAvg.average}%` }}
+                  />
+                </div>
+              </div>
+
+              {/* Vergleich und Einordnung */}
+              <div className="mt-4 p-4 bg-white rounded-lg border border-gray-200">
+                <p className="text-gray-600">{industryAvg.description}</p>
+                <div className="mt-3 text-sm">
+                  {maturity && maturity > industryAvg.average ? (
+                    <div className="text-green-600 font-medium">
+                      ✨ Sie liegen über dem Branchendurchschnitt
+                    </div>
+                  ) : maturity && maturity === industryAvg.average ? (
+                    <div className="text-blue-600 font-medium">
+                      📊 Sie liegen im Branchendurchschnitt
+                    </div>
+                  ) : (
+                    <div className="text-orange-600 font-medium">
+                      💡 Hier besteht Entwicklungspotenzial
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      );
-    })}
+        );
+      })}
 
-    {/* Gesamtbewertung */}
-    <div className="p-6 bg-blue-50 rounded-lg">
-      <h3 className="text-xl font-bold mb-4">Gesamtbewertung</h3>
-      <p className="text-gray-700">
-        Basierend auf Ihrer Bewertung haben Sie bereits wichtige Schritte in Ihrer KI-Reise unternommen. 
-        Nutzen Sie die identifizierten Entwicklungspotenziale, um Ihre KI-Fähigkeiten weiter auszubauen.
-      </p>
-      <div className="mt-4">
-        <Button
-          onClick={() => window.location.href = 'mailto:info@liitu.ch?subject=KI-Reifegradanalyse%20Auswertung'}
-          className="mt-2"
-        >
-          Beratungsgespräch vereinbaren
-          <ArrowRight className="w-4 h-4 ml-2" />
-        </Button>
+      {/* Gesamtbewertung */}
+      <div className="p-6 bg-blue-50 rounded-lg">
+        <h3 className="text-xl font-bold mb-4">Gesamtbewertung</h3>
+        <p className="text-gray-700">
+          Basierend auf Ihrer Bewertung haben Sie bereits wichtige Schritte in Ihrer KI-Reise unternommen.
+          Nutzen Sie die identifizierten Entwicklungspotenziale, um Ihre KI-Fähigkeiten weiter auszubauen.
+        </p>
+        <div className="mt-4">
+          <Button
+            onClick={() => window.location.href = 'mailto:info@liitu.ch?subject=KI-Reifegradanalyse%20Auswertung'}
+            className="mt-2"
+          >
+            Beratungsgespräch vereinbaren
+            <ArrowRight className="w-4 h-4 ml-2" />
+          </Button>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
 
   // Im MaturityWizard Component, passe den Return-Block an:
 
@@ -724,16 +732,16 @@ const renderSummary = () => (
             <ContactForm />
           ) : (
             <>
-            {renderSummary()}
-            <Button
-              variant="outline"
-              onClick={() => setShowContactForm(true)}
-              className="mt-4"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Zurück zum Kontaktformular
-            </Button>
-          </>
+              {renderSummary()}
+              <Button
+                variant="outline"
+                onClick={() => setShowContactForm(true)}
+                className="mt-4"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Zurück zum Kontaktformular
+              </Button>
+            </>
           )}
         </CardContent>
       </Card>
