@@ -75,8 +75,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
           <div className="md:flex md:justify-between">
             <div className="mb-8 md:mb-0">
-              <h3 className="text-lg font-bold text-gray-900">Make AI happen</h3>
-              <p className="mt-2 text-gray-600">Evaluieren Sie Ihre KI-Maturität</p>
+              <h3 className="text-lg font-bold text-gray-900">🤖 Make AI happen</h3>
+              <p className="mt-2 text-gray-600">KI-Check für Ihr Unternehmen</p>
             </div>
             <div className="grid grid-cols-2 gap-8 md:grid-cols-3">
               <div>
@@ -117,8 +117,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 const WelcomeStep = ({ onStart }: { onStart: () => void }) => (
   <div className="space-y-6 text-center">
     <div className="mb-8">
-      <h2 className="text-3xl font-bold mb-4">Willkommen zur KI-Reifegradanalyse</h2>
-      <p className="text-xl text-gray-600">Entdecken Sie Ihr KI-Potenzial</p>
+      <h2 className="text-3xl font-bold mb-4">Willkommen zum KI-Check</h2>
+      <p className="text-xl text-gray-600">Entdecken Sie das Potenzial von Künstlicher Intelligenz für Ihr Unternehmen</p>
     </div>
 
     <div className="space-y-6 text-left mb-8">
@@ -129,7 +129,7 @@ const WelcomeStep = ({ onStart }: { onStart: () => void }) => (
             <span className="mr-3 text-2xl">📊</span>
             <div>
               <p className="font-medium">4 Phasen der Analyse</p>
-              <p className="text-gray-600">Erkundung, Experimentieren, Formalisierung und Transformation</p>
+              <p className="text-gray-600">Wo steckt dein Unternehmen im KI-Entwicklungsprozess?</p>
             </div>
           </li>
           <li className="flex items-start">
@@ -473,7 +473,7 @@ const MaturityWizard = () => {
 
   const stages = [
     {
-      title: "Phase 1: Erkundung 🔍 ",
+      title: "Phase 1: Entdecken & Verstehen 🔍 ",
       questions: [
         "Haben Sie bereits KI Use Cases identifiziert?",
         "Gibt es ein grundlegendes Verständnis von KI im Management?",
@@ -482,7 +482,7 @@ const MaturityWizard = () => {
       ]
     },
     {
-      title: "Phase 2: Experimentieren 🧪 ",
+      title: "Phase 2: Testen & Lernen 🧪 ",
       questions: [
         "Laufen bereits erste Proof of Concepts?",
         "Gibt es ein Budget für KI-Pilotprojekte?",
@@ -491,7 +491,7 @@ const MaturityWizard = () => {
       ]
     },
     {
-      title: "Phase 3: Formalisierung 📊 ",
+      title: "Phase 3: Etablieren & Skalieren 📊 ",
       questions: [
         "Gibt es standardisierte Prozesse für KI-Projekte?",
         "Existiert eine KI-Governance?",
@@ -500,7 +500,7 @@ const MaturityWizard = () => {
       ]
     },
     {
-      title: "Phase 4: Transformation 🦋 ",
+      title: "Phase 4: Innovieren & Wachsen 🦋 ",
       questions: [
         "Ist KI Teil der Unternehmensstrategie?",
         "Gibt es eine KI-getriebene Kultur?",
@@ -692,7 +692,7 @@ const MaturityWizard = () => {
       <Card className="w-full max-w-4xl mx-auto">
         <CardHeader>
           <CardTitle className="text-2xl">
-            🧙 AI Analyse für dein Unternehmen
+            🧙 KI-Check für Ihr Unternehmen
           </CardTitle>
         </CardHeader>
         <CardContent>
