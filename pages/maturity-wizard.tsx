@@ -19,7 +19,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-             {/* <ModernLogo />*/}
+              {/* <ModernLogo />*/}
               <Image
                 src="/images/logo.jpg"
                 alt="Make AI Happen Logo"
@@ -165,7 +165,7 @@ const WelcomeStep = ({ onStart }: { onStart: () => void }) => (
       className="w-full md:w-auto md:px-8"
       size="lg"
     >
-      Assessment starten
+      Analyse starten
       <ArrowRight className="w-5 h-5 ml-2" />
     </Button>
   </div>
@@ -208,6 +208,23 @@ const MaturityWizard = () => {
       ...prev,
       [field]: value
     }));
+  };
+
+  const resetWizard = () => {
+    if (window.confirm('Möchten Sie wirklich zum Start zurückkehren? Alle Ihre Antworten werden dabei gelöscht.')) {
+      setShowWelcome(true);
+      setCurrentStep(0);
+      setShowContactForm(false);
+      setShowResults(false);
+      setAnswers({});
+      setContactData({
+        name: '',
+        email: '',
+        company: '',
+        position: '',
+        consent: false
+      });
+    }
   };
 
   // Komponente für das Kontaktformular
@@ -722,7 +739,7 @@ const MaturityWizard = () => {
                   </Button>
                 ) : (
                   <Button onClick={handleAssessmentComplete}>
-                    Assessment abschliessen
+                    Abschliessen
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 )}
@@ -735,11 +752,11 @@ const MaturityWizard = () => {
               {renderSummary()}
               <Button
                 variant="outline"
-                onClick={() => setShowContactForm(true)}
+                onClick={resetWizard}
                 className="mt-4"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Zurück zum Kontaktformular
+                Zurück zum Start
               </Button>
             </>
           )}
