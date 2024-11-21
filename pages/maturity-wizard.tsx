@@ -127,7 +127,7 @@ const WelcomeStep = ({ onStart }: { onStart: () => void }) => (
           <li className="flex items-start">
             <span className="mr-3 text-2xl">⏱️</span>
             <div>
-              <p className="font-medium">Dauer: ca. 10-15 Minuten</p>
+              <p className="font-medium">Dauer: ca. 3-5 Minuten</p>
               <p className="text-gray-600">Schnelle und effiziente Bewertung</p>
             </div>
           </li>
