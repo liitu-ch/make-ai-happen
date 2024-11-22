@@ -187,10 +187,14 @@ const MaturityWizard = () => {
 
   const [showWelcome, setShowWelcome] = useState(true);
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // Handler für den Start-Button
   const handleStart = () => {
     setShowWelcome(false);
+    scrollToTop();
   };
   // Validierung für das Kontaktformular
   const isContactFormValid = () => {
@@ -536,6 +540,11 @@ const MaturityWizard = () => {
       "Was sind die nächsten Schritte für Ihr Unternehmen?"
     ]
   };
+  const PageTransition = ({ children }: { children: React.ReactNode }) => (
+    <div className="transition-all duration-300 animate-fadeIn">
+      {children}
+    </div>
+  );
 
 
   const handleAnswer = (questionIndex: any, value: string) => {
@@ -561,7 +570,10 @@ const MaturityWizard = () => {
   };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const renderQuestion = (question: any, index: any) => (
-    <div key={index} className="mb-4 p-4 bg-gray-50 rounded-lg">
+    <div
+      key={index}
+      className="mb-4 p-4 bg-gray-50 rounded-lg transform transition-all duration-300 hover:scale-[1.01] hover:shadow-md"
+    >
       <div className="flex flex-col md:flex-row md:items-center md:justify-between">
         <p className="text-lg mb-4 md:mb-0">{question}</p>
         <div className="flex flex-row justify-start md:justify-end gap-3">
@@ -613,7 +625,7 @@ const MaturityWizard = () => {
 
   // Ersetze die renderSummary Funktion
   const renderSummary = () => (
-    <div className="space-y-8">
+    <div className="space-y-8 animate-fadeIn">
       <div>
         <h2 className="text-2xl font-bold mb-4">Ihre KI-Reife im Überblick</h2>
         <p className="text-gray-600 mb-6">
@@ -713,53 +725,59 @@ const MaturityWizard = () => {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          {showWelcome ? (
-            <WelcomeStep onStart={handleStart} />
-          ) : !showContactForm && !showResults ? (
-            <>
-              <div className="mb-6">
-                <h2 className="text-xl font-bold mb-4">{stages[currentStep].title}</h2>
-                {stages[currentStep].questions.map((q, i) => renderQuestion(q, i))}
-              </div>
-              <div className="flex justify-between mt-4">
+          <PageTransition>
+            {showWelcome ? (
+              <WelcomeStep onStart={handleStart} />
+            ) : !showContactForm && !showResults ? (
+              <>
+                <div className="mb-6 animate-fadeIn"> {/* Für Fragen */}
+                  <h2 className="text-xl font-bold mb-4">{stages[currentStep].title}</h2>
+                  {stages[currentStep].questions.map((q, i) => renderQuestion(q, i))}
+                </div>
+                <div className="flex justify-between mt-4">
+                  <Button
+                    variant="outline"
+                    onClick={() => currentStep === 0 ? setShowWelcome(true) : setCurrentStep(currentStep - 1)}
+                    disabled={false} // Entferne disabled={currentStep === 0}
+                  >
+                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    {currentStep === 0 ? 'Zum Start' : 'Zurück'}
+                  </Button>
+                  {currentStep < stages.length - 1 ? (
+                    // Im return block, update den Weiter-Button
+                    <Button
+                      onClick={() => {
+                        setCurrentStep(currentStep + 1);
+                        scrollToTop();
+                      }}
+                    >
+                      Weiter
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  ) : (
+                    <Button onClick={handleAssessmentComplete}>
+                      Abschliessen
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  )}
+                </div>
+              </>
+            ) : showContactForm && !showResults ? (
+              <ContactForm />
+            ) : (
+              <>
+                {renderSummary()}
                 <Button
                   variant="outline"
-                  onClick={() => currentStep === 0 ? setShowWelcome(true) : setCurrentStep(currentStep - 1)}
-                  disabled={false} // Entferne disabled={currentStep === 0}
+                  onClick={resetWizard}
+                  className="mt-4"
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
-                  {currentStep === 0 ? 'Zum Start' : 'Zurück'}
+                  Zurück zum Start
                 </Button>
-                {currentStep < stages.length - 1 ? (
-                  <Button
-                    onClick={() => setCurrentStep(currentStep + 1)}
-                  >
-                    Weiter
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                ) : (
-                  <Button onClick={handleAssessmentComplete}>
-                    Abschliessen
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                )}
-              </div>
-            </>
-          ) : showContactForm && !showResults ? (
-            <ContactForm />
-          ) : (
-            <>
-              {renderSummary()}
-              <Button
-                variant="outline"
-                onClick={resetWizard}
-                className="mt-4"
-              >
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Zurück zum Start
-              </Button>
-            </>
-          )}
+              </>
+            )}
+          </PageTransition>
         </CardContent>
       </Card>
     </Layout>
