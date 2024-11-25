@@ -30,18 +30,18 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
               />
               <div className="flex flex-col">
                 <h1 className="text-xl font-bold text-gray-900">Make AI happen </h1>
-                <span className="text-sm text-gray-500 hidden sm:block">The Art of AI Transformation</span>
+                 {/*   <span className="text-sm text-gray-500 hidden sm:block">The Art of AI Transformation</span>     */} 
               </div>
             </div>
 
-            {/* Desktop Navigation */}
+            {/* Desktop Navigation 
             <nav className="hidden md:flex space-x-8">
               <a href="#" className="text-gray-700 hover:text-gray-900">Home</a>
               <a href="#" className="text-gray-700 hover:text-gray-900">Über uns</a>
               <a href="#" className="text-gray-700 hover:text-gray-900">Kontakt</a>
             </nav>
-
-            {/* Mobile menu button */}
+            */}
+            {/* Mobile menu button 
             <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -49,7 +49,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
               >
                 {isMenuOpen ? <X /> : <Menu />}
               </button>
-            </div>
+            </div>*/}
 
           </div>
           {/* Mobile Navigation */}
@@ -76,16 +76,16 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           <div className="md:flex md:justify-between">
             <div className="mb-8 md:mb-0">
               <h3 className="text-lg font-bold text-gray-900">🤖 Make AI happen</h3>
-              <p className="mt-2 text-gray-600">KI-Check für Ihr Unternehmen</p>
+                <p className="mt-2 text-gray-600">KI-Check für Ihr Unternehmen</p>
             </div>
             <div className="grid grid-cols-2 gap-8 md:grid-cols-3">
-              <div>
+               {/*  <div>
                 <h4 className="font-medium text-gray-900">Links</h4>
                 <ul className="mt-4 space-y-2">
                   <li><a href="#" className="text-gray-600 hover:text-gray-900">Datenschutz</a></li>
                   <li><a href="#" className="text-gray-600 hover:text-gray-900">Impressum</a></li>
                 </ul>
-              </div>
+              </div> */}
               <div>
                 <h4 className="font-medium text-gray-900">Kontakt</h4>
                 <ul className="mt-4 space-y-2">
@@ -720,9 +720,9 @@ const MaturityWizard = () => {
     <Layout>
       <Card className="w-full max-w-4xl mx-auto">
         <CardHeader>
-          <CardTitle className="text-2xl">
+             {/*   <CardTitle className="text-2xl"> 
             🧙 KI-Check für Ihr Unternehmen
-          </CardTitle>
+          </CardTitle> */}
         </CardHeader>
         <CardContent>
           <PageTransition>
