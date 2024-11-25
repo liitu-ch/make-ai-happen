@@ -21,7 +21,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             <div className="flex items-center">
               {/* <ModernLogo />*/}
               <Image
-                src="/images/logo.jpg"
+                src="/images/logo.png"
                 alt="Make AI Happen Logo"
                 width={40}
                 height={40}
@@ -29,7 +29,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 priority
               />
               <div className="flex flex-col">
-                <h1 className="text-xl font-bold text-gray-900">Make AI happen 🤖 </h1>
+                <h1 className="text-xl font-bold text-gray-900">Make AI happen </h1>
                 <span className="text-sm text-gray-500 hidden sm:block">The Art of AI Transformation</span>
               </div>
             </div>
