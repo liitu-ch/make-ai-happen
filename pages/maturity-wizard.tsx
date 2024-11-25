@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Menu, X, ArrowRight, ArrowLeft, CheckCircle } from 'lucide-react';
+import { Menu, X, ArrowRight, ArrowLeft, CheckCircle, Share } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -30,7 +30,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
               />
               <div className="flex flex-col">
                 <h1 className="text-xl font-bold text-gray-900">Make AI happen </h1>
-                 {/*   <span className="text-sm text-gray-500 hidden sm:block">The Art of AI Transformation</span>     */} 
+                {/*   <span className="text-sm text-gray-500 hidden sm:block">The Art of AI Transformation</span>     */}
               </div>
             </div>
 
@@ -76,10 +76,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           <div className="md:flex md:justify-between">
             <div className="mb-8 md:mb-0">
               <h3 className="text-lg font-bold text-gray-900">🤖 Make AI happen</h3>
-                <p className="mt-2 text-gray-600">KI-Check für Ihr Unternehmen</p>
+              <p className="mt-2 text-gray-600">KI-Check für Ihr Unternehmen</p>
             </div>
             <div className="grid grid-cols-2 gap-8 md:grid-cols-3">
-               {/*  <div>
+              {/*  <div>
                 <h4 className="font-medium text-gray-900">Links</h4>
                 <ul className="mt-4 space-y-2">
                   <li><a href="#" className="text-gray-600 hover:text-gray-900">Datenschutz</a></li>
@@ -206,12 +206,81 @@ const MaturityWizard = () => {
     );
   };
 
+  const handleLinkedInShare = () => {
+    const totalScore = calculateTotalScore();
+
+    const shareText = encodeURIComponent(`
+  🎯 Mein KI-Reifegrad: ${totalScore}%
+  
+  Ich habe gerade den KI-Reifegrad-Check von Make AI Happen abgeschlossen. 
+  
+  Meine Ergebnisse:
+  ${stages.map((stage, index) => {
+      const maturity = calculateStageMaturity(index);
+      return `${stage.title}: ${maturity}%`;
+    }).join('\n')}
+  
+  Ermitteln Sie auch Ihren KI-Reifegrad:
+  `.trim());
+
+
+
+    const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=https://makeaihappen.ch&summary=${shareText}`;
+    window.open(linkedinUrl, '_blank');
+  };
+
+
   // Handler für Kontaktformular-Änderungen
   const handleContactChange = (field: string, value: string | boolean) => {
     setContactData(prev => ({
       ...prev,
       [field]: value
     }));
+  };
+
+  const calculateTotalScore = () => {
+    let totalScore = 0;
+    let totalAnswered = 0;
+
+    stages.forEach((_, index) => {
+      const maturity = calculateStageMaturity(index);
+      if (maturity !== null) {
+        totalScore += maturity;
+        totalAnswered += 1;
+      }
+    });
+
+    return totalAnswered === stages.length ? Math.round(totalScore / stages.length) : null;
+  };
+
+  const handleShare = () => {
+    const totalScore = calculateTotalScore();
+
+    const shareText = `
+  🤖 Mein KI-Reifegrad: ${totalScore}%
+  
+  Ergebnisse im Detail:
+  ${stages.map((stage, index) => {
+      const maturity = calculateStageMaturity(index);
+      return `${stage.title}: ${maturity}%`;
+    }).join('\n')}
+  
+  Ermitteln Sie auch Ihren KI-Reifegrad: https://makeaihappen.ch
+    `.trim();
+
+    if (navigator.share) {
+      // Mobile Share API
+      navigator.share({
+        title: 'Mein KI-Reifegrad',
+        text: shareText,
+        url: 'https://makeaihappen.ch'
+      }).catch(console.error);
+    } else {
+      // Fallback: Copy to clipboard
+      navigator.clipboard.writeText(shareText)
+        .then(() => alert('Ergebnisse wurden in die Zwischenablage kopiert!'))
+        .catch(() => alert('Teilen nicht möglich. Bitte kopieren Sie den Text manuell.'));
+    }
   };
 
   const resetWizard = () => {
@@ -435,7 +504,7 @@ const MaturityWizard = () => {
               htmlFor="consent"
               className="text-sm leading-tight cursor-pointer"
             >
-              Ich willige ein, dass meine Daten gemäß der Datenschutzerklärung gespeichert und verarbeitet werden dürfen.
+              Ich willige ein, dass meine Daten gemäss der Datenschutzerklärung gespeichert und verarbeitet werden dürfen.
               Die Einwilligung kann jederzeit widerrufen werden. *
             </Label>
           </div>
@@ -659,7 +728,7 @@ const MaturityWizard = () => {
               {/* Branchendurchschnitt */}
               <div>
                 <div className="flex justify-between mb-2">
-                  <span className="text-sm font-medium">Branchendurchschnitt</span>
+                  <span className="text-sm font-medium">Durchschnitt</span>
                   <span className="text-sm font-medium">{industryAvg.average}%</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2.5">
@@ -676,11 +745,11 @@ const MaturityWizard = () => {
                 <div className="mt-3 text-sm">
                   {maturity && maturity > industryAvg.average ? (
                     <div className="text-green-600 font-medium">
-                      ✨ Sie liegen über dem Branchendurchschnitt
+                      ✨ Sie liegen über dem Durchschnitt
                     </div>
                   ) : maturity && maturity === industryAvg.average ? (
                     <div className="text-blue-600 font-medium">
-                      📊 Sie liegen im Branchendurchschnitt
+                      📊 Sie liegen im Durchschnitt
                     </div>
                   ) : (
                     <div className="text-orange-600 font-medium">
@@ -689,12 +758,15 @@ const MaturityWizard = () => {
                   )}
                 </div>
               </div>
+
+
+
             </div>
           </div>
         );
       })}
 
-      {/* Gesamtbewertung */}
+      {/* Gesamtbewertung 
       <div className="p-6 bg-blue-50 rounded-lg">
         <h3 className="text-xl font-bold mb-4">Gesamtbewertung</h3>
         <p className="text-gray-700">
@@ -710,7 +782,66 @@ const MaturityWizard = () => {
             <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </div>
+      </div>*/}
+
+
+      <div className="p-6 bg-blue-50 rounded-lg">
+        <h3 className="text-xl font-bold mb-4">Gesamtbewertung</h3>
+        <div className="mb-4">
+          <div className="flex items-center justify-between">
+            <span className="text-lg font-medium">Ihr Gesamt-Reifegrad:</span>
+            <span className="text-2xl font-bold text-blue-600">{calculateTotalScore()}%</span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-3 mt-2">
+            <div
+              className="bg-blue-600 h-3 rounded-full transition-all duration-500"
+              style={{ width: `${calculateTotalScore()}%` }}
+            />
+          </div>
+        </div>
+        <p className="text-gray-700 mb-6">
+          Basierend auf Ihrer Bewertung haben Sie bereits wichtige Schritte in Ihrer KI-Reise unternommen.
+          Nutzen Sie die identifizierten Entwicklungspotenziale, um Ihre KI-Fähigkeiten weiter auszubauen.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Button
+            onClick={() => window.location.href = 'mailto:info@liitu.ch?subject=KI-Reifegradanalyse%20Auswertung'}
+            className="flex-1"
+          >
+            Beratungsgespräch vereinbaren
+            <ArrowRight className="w-4 h-4 ml-2" />
+          </Button>
+          <Button
+            onClick={handleShare}
+            variant="outline"
+            className="flex-1"
+          >
+            Resultate teilen
+            <Share className="w-4 h-4 ml-2" />
+          </Button>
+          <Button
+            onClick={handleLinkedInShare}
+            variant="outline"
+            className="flex-1"
+            // LinkedIn Blau
+            style={{
+              backgroundColor: '#0A66C2',
+              color: 'white',
+              borderColor: '#0A66C2'
+            }}
+          >
+            Auf LinkedIn teilen
+            <Image
+              src="/images/linkedin-white.png"
+              alt="LinkedIn"
+              width={16}
+              height={16}
+              className="ml-2"
+            />
+          </Button>
+        </div>
       </div>
+
     </div>
   );
 
@@ -720,7 +851,7 @@ const MaturityWizard = () => {
     <Layout>
       <Card className="w-full max-w-4xl mx-auto">
         <CardHeader>
-             {/*   <CardTitle className="text-2xl"> 
+          {/*   <CardTitle className="text-2xl"> 
             🧙 KI-Check für Ihr Unternehmen
           </CardTitle> */}
         </CardHeader>
