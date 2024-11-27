@@ -193,8 +193,10 @@ const MaturityWizard = () => {
 
   // Handler für den Start-Button
   const handleStart = () => {
-    setShowWelcome(false);
     scrollToTop();
+    setTimeout(() => {
+      setShowWelcome(false);
+    }, 100);
   };
   // Validierung für das Kontaktformular
   const isContactFormValid = () => {
@@ -610,13 +612,14 @@ const MaturityWizard = () => {
     ]
   };
   const PageTransition = ({ children }: { children: React.ReactNode }) => (
-    <div className="transition-all duration-300 animate-fadeIn">
+    <div className="transition-all duration-300">
       {children}
     </div>
   );
 
 
   const handleAnswer = (questionIndex: any, value: string) => {
+    // scrollToTop();
     setAnswers({
       ...answers,
       [`${currentStep}-${questionIndex}`]: value
@@ -647,7 +650,14 @@ const MaturityWizard = () => {
         <p className="text-lg mb-4 md:mb-0">{question}</p>
         <div className="flex flex-row justify-start md:justify-end gap-3">
           <button
-            onClick={() => handleAnswer(index, 'yes')}
+            type="button" // Add this
+            onClick={(e) => {
+              e.preventDefault();
+              setTimeout(() => {
+                handleAnswer(index, 'yes');
+              }, 100);
+
+            }}
             className={`px-6 py-2 rounded-md min-w-[100px] transition-colors ${answers[`${currentStep}-${index}`] === 'yes'
               ? 'bg-green-500 text-white hover:bg-green-600'
               : 'bg-gray-200 hover:bg-gray-300'
@@ -656,7 +666,11 @@ const MaturityWizard = () => {
             Ja
           </button>
           <button
-            onClick={() => handleAnswer(index, 'no')}
+            type="button" // Add this
+            onClick={(e) => {
+              e.preventDefault();
+              handleAnswer(index, 'no');
+            }}
             className={`px-6 py-2 rounded-md min-w-[100px] transition-colors ${answers[`${currentStep}-${index}`] === 'no'
               ? 'bg-red-500 text-white hover:bg-red-600'
               : 'bg-gray-200 hover:bg-gray-300'
@@ -861,14 +875,19 @@ const MaturityWizard = () => {
               <WelcomeStep onStart={handleStart} />
             ) : !showContactForm && !showResults ? (
               <>
-                <div className="mb-6 animate-fadeIn"> {/* Für Fragen */}
+                <div className="mb-6"> {/* Für Fragen */}
                   <h2 className="text-xl font-bold mb-4">{stages[currentStep].title}</h2>
                   {stages[currentStep].questions.map((q, i) => renderQuestion(q, i))}
                 </div>
                 <div className="flex justify-between mt-4">
                   <Button
                     variant="outline"
-                    onClick={() => currentStep === 0 ? setShowWelcome(true) : setCurrentStep(currentStep - 1)}
+                    onClick={() => {
+                      scrollToTop();
+                      setTimeout(() => {
+                        currentStep === 0 ? setShowWelcome(true) : setCurrentStep(currentStep - 1);
+                      }, 100);
+                    }}
                     disabled={false} // Entferne disabled={currentStep === 0}
                   >
                     <ArrowLeft className="w-4 h-4 mr-2" />
@@ -878,8 +897,10 @@ const MaturityWizard = () => {
                     // Im return block, update den Weiter-Button
                     <Button
                       onClick={() => {
-                        setCurrentStep(currentStep + 1);
                         scrollToTop();
+                        setTimeout(() => {
+                          setCurrentStep(currentStep + 1);
+                        }, 100);
                       }}
                     >
                       Weiter
