@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --primary: 210 100% 50%;
-  --secondary: 220 20% 92%;
-  /* Weitere Farbanpassungen... */
-}
-
 @layer base {
   :root {
     --background: 0 0% 100%;

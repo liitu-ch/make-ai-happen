@@ -198,15 +198,7 @@ const MaturityWizard = () => {
       setShowWelcome(false);
     }, 100);
   };
-  // Validierung für das Kontaktformular
-  const isContactFormValid = () => {
-    return (
-      contactData.name.trim() !== '' &&
-      contactData.email.trim() !== '' &&
-      contactData.company.trim() !== '' &&
-      contactData.consent
-    );
-  };
+
 
   const handleLinkedInShare = () => {
     const totalScore = calculateTotalScore();
@@ -231,14 +223,6 @@ const MaturityWizard = () => {
     window.open(linkedinUrl, '_blank');
   };
 
-
-  // Handler für Kontaktformular-Änderungen
-  const handleContactChange = (field: string, value: string | boolean) => {
-    setContactData(prev => ({
-      ...prev,
-      [field]: value
-    }));
-  };
 
   const calculateTotalScore = () => {
     let totalScore = 0;
@@ -839,14 +823,14 @@ const MaturityWizard = () => {
             className="flex-1"
             // LinkedIn Blau
             style={{
-              backgroundColor: '#0A66C2',
-              color: 'white',
+              backgroundColor: '#FFF',
+              color: '0A66C2',
               borderColor: '#0A66C2'
             }}
           >
             Auf LinkedIn teilen
             <Image
-              src="/images/linkedin-white.png"
+              src="/images/linkedin.png"
               alt="LinkedIn"
               width={16}
               height={16}
@@ -885,10 +869,13 @@ const MaturityWizard = () => {
                     onClick={() => {
                       scrollToTop();
                       setTimeout(() => {
-                        currentStep === 0 ? setShowWelcome(true) : setCurrentStep(currentStep - 1);
+                        if (currentStep === 0) {
+                          setShowWelcome(true);
+                        } else {
+                          setCurrentStep(currentStep - 1);
+                        }
                       }, 100);
                     }}
-                    disabled={false} // Entferne disabled={currentStep === 0}
                   >
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     {currentStep === 0 ? 'Zum Start' : 'Zurück'}
