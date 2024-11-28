@@ -492,8 +492,8 @@ const MaturityWizard = () => {
               htmlFor="consent"
               className="text-sm leading-tight cursor-pointer"
             >
-              Ich willige ein, dass meine Daten gemäss der Datenschutzerklärung gespeichert und verarbeitet werden dürfen.
-              Die Einwilligung kann jederzeit widerrufen werden. *
+              Ich willige ein, dass meine Daten für einen Vergleich mit anderen Organisationen gespeichert und verarbeitet werden dürfen.
+              Die Einwilligung kann jederzeit widerrufen werden, schreiben Sie dazu eine E-Mail an info@liitu.ch. *
             </Label>
           </div>
 
@@ -591,15 +591,6 @@ const MaturityWizard = () => {
     }
   ];
 
-  const reflection = {
-    title: "Reflexion zur KI-Reife",
-    questions: [
-      "Warum ist es wichtig, die KI-Reifephasen zu kennen?",
-      "Welche Chancen ergeben sich aus der Reifegradanalyse?",
-      "Welche Risiken bestehen bei fehlendem Reifegrad?",
-      "Was sind die nächsten Schritte für Ihre Organisation?"
-    ]
-  };
   const PageTransition = ({ children }: { children: React.ReactNode }) => (
     <div className="transition-all duration-300">
       {children}
@@ -672,28 +663,6 @@ const MaturityWizard = () => {
     </div>
   );
 
-  const renderReflection = () => (
-    <div className="space-y-4">
-      <h2 className="text-xl font-bold mb-4">Reflexion</h2>
-      {reflection.questions.map((question, index) => (
-        <div key={index} className="p-4 bg-gray-50 rounded-lg">
-          <p className="text-lg mb-2">{question}</p>
-          <textarea
-            className="w-full p-2 border rounded"
-            rows={3}
-            placeholder="Ihre Antwort..."
-            value={answers[`reflection-${index}` as keyof typeof answers] || ''}
-            onChange={(e) =>
-              setAnswers({
-                ...answers,
-                [`reflection-${index}` as keyof typeof answers]: e.target.value
-              })
-            }
-          />
-        </div>
-      ))}
-    </div>
-  );
 
   // Ersetze die renderSummary Funktion
   const renderSummary = () => (
