@@ -76,7 +76,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           <div className="md:flex md:justify-between">
             <div className="mb-8 md:mb-0">
               <h3 className="text-lg font-bold text-gray-900">🤖 Make AI happen</h3>
-              <p className="mt-2 text-gray-600">KI-Check für Ihr Unternehmen</p>
+              <p className="mt-2 text-gray-600">KI-Check für Ihre Organisation</p>
             </div>
             <div className="grid grid-cols-2 gap-8 md:grid-cols-3">
               {/*  <div>
@@ -118,7 +118,7 @@ const WelcomeStep = ({ onStart }: { onStart: () => void }) => (
   <div className="space-y-6 text-center">
     <div className="mb-8">
       <h2 className="text-3xl font-bold mb-4">Willkommen zum KI-Check</h2>
-      <p className="text-xl text-gray-600">Entdecken Sie das Potenzial von Künstlicher Intelligenz für Ihr Unternehmen</p>
+      <p className="text-xl text-gray-600">Entdecken Sie das Potenzial von Künstlicher Intelligenz für Ihre Organisation</p>
     </div>
 
     <div className="space-y-6 text-left mb-8">
@@ -129,7 +129,7 @@ const WelcomeStep = ({ onStart }: { onStart: () => void }) => (
             <span className="mr-3 text-2xl">📊</span>
             <div>
               <p className="font-medium">4 Phasen der Analyse</p>
-              <p className="text-gray-600">Wo steckt dein Unternehmen im KI-Entwicklungsprozess?</p>
+              <p className="text-gray-600">Wo steckt Ihre Organisation im KI-Entwicklungsprozess?</p>
             </div>
           </li>
           <li className="flex items-start">
@@ -143,7 +143,7 @@ const WelcomeStep = ({ onStart }: { onStart: () => void }) => (
             <span className="mr-3 text-2xl">📈</span>
             <div>
               <p className="font-medium">Detaillierte Auswertung</p>
-              <p className="text-gray-600">Erhalten Sie einen umfassenden Einblick in Ihre KI-Reife</p>
+              <p className="text-gray-600">Erhalten Sie einen umfassenden Einblick in Ihre KI-Entwicklung</p>
             </div>
           </li>
         </ul>
@@ -204,9 +204,9 @@ const MaturityWizard = () => {
     const totalScore = calculateTotalScore();
 
     const shareText = encodeURIComponent(`
-  🎯 Mein KI-Reifegrad: ${totalScore}%
+  🎯 Mein KI-Score: ${totalScore}%
   
-  Ich habe gerade den KI-Reifegrad-Check von Make AI Happen abgeschlossen. 
+  Ich habe gerade den KI-Check von "Make AI Happen" abgeschlossen. 
   
   Meine Ergebnisse:
   ${stages.map((stage, index) => {
@@ -214,7 +214,7 @@ const MaturityWizard = () => {
       return `${stage.title}: ${maturity}%`;
     }).join('\n')}
   
-  Ermitteln Sie auch Ihren KI-Reifegrad:
+  Ermittle auch du deinen KI-Score für deine Organisation:  https://makeaihappen.ch
   `.trim());
 
 
@@ -243,21 +243,23 @@ const MaturityWizard = () => {
     const totalScore = calculateTotalScore();
 
     const shareText = `
-  🤖 Mein KI-Reifegrad: ${totalScore}%
+  🎯 Mein KI-Score: ${totalScore}%
   
-  Ergebnisse im Detail:
+  Ich habe gerade den KI-Check von "Make AI Happen" abgeschlossen. 
+
+  Meine Ergebnisse:
   ${stages.map((stage, index) => {
       const maturity = calculateStageMaturity(index);
       return `${stage.title}: ${maturity}%`;
     }).join('\n')}
   
-  Ermitteln Sie auch Ihren KI-Reifegrad: https://makeaihappen.ch
+  Ermittle auch du deinen KI-Score für deine Organisation:  https://makeaihappen.ch
     `.trim();
 
     if (navigator.share) {
       // Mobile Share API
       navigator.share({
-        title: 'Mein KI-Reifegrad',
+        title: 'Mein KI-Score',
         text: shareText,
         url: 'https://makeaihappen.ch'
       }).catch(console.error);
@@ -402,7 +404,7 @@ const MaturityWizard = () => {
         const errorMessages = {
           name: 'Bitte geben Sie Ihren Namen ein.',
           email: 'Bitte geben Sie eine gültige E-Mail-Adresse ein.',
-          company: 'Bitte geben Sie Ihr Unternehmen ein.',
+          company: 'Bitte geben Sie Ihre Organisatiion ein.',
           consent: 'Bitte akzeptieren Sie die Datenschutzerklärung.'
         };
 
@@ -456,14 +458,14 @@ const MaturityWizard = () => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="company">Unternehmen *</Label>
+            <Label htmlFor="company">Organisation *</Label>
             <Input
               id="company"
               type="text"
               value={formData.company}
               onChange={(e) => setFormData(prev => ({ ...prev, company: e.target.value }))}
               required
-              placeholder="Ihr Unternehmen"
+              placeholder="Ihre Organisation"
             />
           </div>
 
@@ -521,29 +523,32 @@ const MaturityWizard = () => {
 
   // Handler für die Fertigstellung des Assessments
   const handleAssessmentComplete = () => {
-    setShowContactForm(true);
+    scrollToTop();
+    setTimeout(() => {
+      setShowContactForm(true);
+    }, 100);
   };
 
   const industryAverages = [
     {
       phase: "Erkundung 🔍",
       average: 65,
-      description: "Die meisten Unternehmen haben bereits erste KI Use Cases identifiziert und ein grundlegendes Verständnis aufgebaut."
+      description: "Die meisten Organisationen haben bereits erste KI Use Cases identifiziert und ein grundlegendes Verständnis aufgebaut."
     },
     {
       phase: "Experimentieren 🧪",
       average: 45,
-      description: "Etwa die Hälfte der Unternehmen führt erste Proof of Concepts durch und experimentiert mit KI-Lösungen."
+      description: "Etwa die Hälfte der Organisationen führt erste Proof of Concepts durch und experimentiert mit KI-Lösungen."
     },
     {
       phase: "Formalisierung 📊",
       average: 30,
-      description: "Standardisierte Prozesse und Governance-Strukturen sind bei einem Drittel der Unternehmen etabliert."
+      description: "Standardisierte Prozesse und Governance-Strukturen sind bei einem Drittel der Organisationen etabliert."
     },
     {
       phase: "Transformation 🦋",
       average: 15,
-      description: "Nur wenige Unternehmen haben KI bereits vollständig in ihre Geschäftsprozesse integriert."
+      description: "Nur wenige Organisationen haben KI bereits vollständig in ihre Geschäftsprozesse integriert."
     }
   ];
 
@@ -578,7 +583,7 @@ const MaturityWizard = () => {
     {
       title: "Phase 4: Innovieren & Wachsen 🦋 ",
       questions: [
-        "Ist KI Teil der Unternehmensstrategie?",
+        "Ist KI Teil der Organisationsstruktur?",
         "Gibt es eine KI-getriebene Kultur?",
         "Werden Geschäftsprozesse durch KI transformiert?",
         "Existiert ein KI Center of Excellence?"
@@ -592,7 +597,7 @@ const MaturityWizard = () => {
       "Warum ist es wichtig, die KI-Reifephasen zu kennen?",
       "Welche Chancen ergeben sich aus der Reifegradanalyse?",
       "Welche Risiken bestehen bei fehlendem Reifegrad?",
-      "Was sind die nächsten Schritte für Ihr Unternehmen?"
+      "Was sind die nächsten Schritte für Ihre Organisation?"
     ]
   };
   const PageTransition = ({ children }: { children: React.ReactNode }) => (
@@ -787,7 +792,7 @@ const MaturityWizard = () => {
         <h3 className="text-xl font-bold mb-4">Gesamtbewertung</h3>
         <div className="mb-4">
           <div className="flex items-center justify-between">
-            <span className="text-lg font-medium">Ihr Gesamt-Reifegrad:</span>
+            <span className="text-lg font-medium">Ihr Gesamt-Score:</span>
             <span className="text-2xl font-bold text-blue-600">{calculateTotalScore()}%</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-3 mt-2">
@@ -803,7 +808,7 @@ const MaturityWizard = () => {
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
           <Button
-            onClick={() => window.location.href = 'mailto:info@liitu.ch?subject=KI-Reifegradanalyse%20Auswertung'}
+            onClick={() => window.location.href = 'mailto:info@liitu.ch?subject=KI-Score-Analyse%20Auswertung'}
             className="flex-1"
           >
             Beratungsgespräch vereinbaren

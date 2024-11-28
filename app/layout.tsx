@@ -15,8 +15,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Make AI Happen | KI-Check für Ihr Unternehmen",
-  description: "Make AI Happen ist ein interaktiver Reifegradassistent, der Unternehmen auf ihrer KI-Transformationsreise begleitet. Durch eine strukturierte Selbsteinschätzung und reflektierte Analyse hilft das Tool, den aktuellen Stand der KI-Adoption zu bewerten und konkrete nächste Schritte zu definieren.",
+  title: "Make AI Happen | KI-Check für Ihre Organisation",
+  description: "Make AI Happen ist ein interaktiver Assistent, der Organisationen in Ihrere KI-Transformation bewertet. Durch eine strukturierte Selbsteinschätzung hilft das Tool, den aktuellen Stand der KI-Adoption zu bewerten und konkrete nächste Schritte zu definieren.",
 };
 
 export default function RootLayout({
