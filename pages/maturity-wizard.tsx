@@ -128,8 +128,8 @@ const WelcomeStep = ({ onStart }: { onStart: () => void }) => (
           <li className="flex items-start">
             <span className="mr-3 text-2xl">📊</span>
             <div>
-              <p className="font-medium">4 Phasen der Analyse</p>
-              <p className="text-gray-600">Wo steckt Ihre Organisation im KI-Entwicklungsprozess?</p>
+              <p className="font-medium">4 Phasen des KI-Checks</p>
+              <p className="text-gray-600">Wo steht Ihre Organisation in der KI-Transformation?</p>
             </div>
           </li>
           <li className="flex items-start">
@@ -152,10 +152,10 @@ const WelcomeStep = ({ onStart }: { onStart: () => void }) => (
       <div className="bg-blue-50 p-6 rounded-lg">
         <h3 className="text-xl font-semibold mb-4">Ihre Vorteile:</h3>
         <ul className="space-y-3 list-disc list-inside text-gray-800">
-          <li>Identifizieren Sie Ihre Position auf der KI-Reise</li>
+          <li>Bestimmen Sie Ihre Entwicklungsstufe in der KI-Transformation</li>
           <li>Erkennen Sie Potenziale und Handlungsfelder</li>
           <li>Erhalten Sie konkrete nächste Schritte</li>
-          <li>Vergleichen Sie sich mit Best Practices</li>
+          <li>Vergleichen Sie sich mit anderen Organisationen</li>
         </ul>
       </div>
     </div>
@@ -165,7 +165,7 @@ const WelcomeStep = ({ onStart }: { onStart: () => void }) => (
       className="w-full md:w-auto md:px-8"
       size="lg"
     >
-      Analyse starten
+      KI-Check starten
       <ArrowRight className="w-5 h-5 ml-2" />
     </Button>
   </div>
@@ -217,7 +217,7 @@ const MaturityWizard = () => {
   Ermittle auch du deinen KI-Score für deine Organisation:  https://makeaihappen.ch
   `.trim());
 
-
+  handleShare();
 
     const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=https://makeaihappen.ch&summary=${shareText}`;
     window.open(linkedinUrl, '_blank');
@@ -492,8 +492,7 @@ const MaturityWizard = () => {
               htmlFor="consent"
               className="text-sm leading-tight cursor-pointer"
             >
-              Ich willige ein, dass meine Daten für einen Vergleich mit anderen Organisationen gespeichert und verarbeitet werden dürfen.
-              Die Einwilligung kann jederzeit widerrufen werden, schreiben Sie dazu eine E-Mail an info@liitu.ch. *
+              Ich stimme zu, dass meine Daten für anonymisierte Vergleichsanalysen verwendet werden. Die Einwilligung kann jederzeit per E-Mail an info@liitu.ch widerrufen werden. *
             </Label>
           </div>
 
@@ -559,7 +558,7 @@ const MaturityWizard = () => {
         "Haben Sie bereits KI Use Cases identifiziert?",
         "Gibt es ein grundlegendes Verständnis von KI im Management?",
         "Wurden erste Ressourcen für KI-Exploration bereitgestellt?",
-        "Existiert eine Vision für KI-Einsatz?"
+        "Gibt es eine Vision für KI-Einsatz?"
       ]
     },
     {
@@ -567,26 +566,26 @@ const MaturityWizard = () => {
       questions: [
         "Laufen bereits erste Proof of Concepts?",
         "Gibt es ein Budget für KI-Pilotprojekte?",
-        "Existiert ein Team für KI-Experimente?",
+        "Gibt es ein Team für KI-Experimente?",
         "Wurden erste Erfolge/Misserfolge dokumentiert?"
       ]
     },
     {
-      title: "Phase 3: Etablieren & Skalieren 📊 ",
+      title: "Phase 3: Etablieren & Standardisieren 📊 ",
       questions: [
         "Gibt es standardisierte Prozesse für KI-Projekte?",
-        "Existiert eine KI-Governance?",
+        "Gibt es eine KI-Governance?",
         "Sind Produktivumgebungen für KI vorhanden?",
         "Wurden KPIs für KI-Projekte definiert?"
       ]
     },
     {
-      title: "Phase 4: Innovieren & Wachsen 🦋 ",
+      title: "Phase 4: Transformation & Skalieren 🦋 ",
       questions: [
         "Ist KI Teil der Organisationsstruktur?",
         "Gibt es eine KI-getriebene Kultur?",
         "Werden Geschäftsprozesse durch KI transformiert?",
-        "Existiert ein KI Center of Excellence?"
+        "Gibt es ein KI Center of Excellence?"
       ]
     }
   ];
@@ -668,7 +667,7 @@ const MaturityWizard = () => {
   const renderSummary = () => (
     <div className="space-y-8 animate-fadeIn">
       <div>
-        <h2 className="text-2xl font-bold mb-4">Ihre KI-Reife im Überblick</h2>
+        <h2 className="text-2xl font-bold mb-4">Ihr KI-Score im Überblick</h2>
         <p className="text-gray-600 mb-6">
           Vergleichen Sie Ihre Ergebnisse mit dem Branchendurchschnitt.
         </p>
@@ -772,12 +771,12 @@ const MaturityWizard = () => {
           </div>
         </div>
         <p className="text-gray-700 mb-6">
-          Basierend auf Ihrer Bewertung haben Sie bereits wichtige Schritte in Ihrer KI-Reise unternommen.
+          Basierend auf Ihrer Bewertung haben Sie bereits wichtige Schritte in Ihrer KI-Transformation unternommen.
           Nutzen Sie die identifizierten Entwicklungspotenziale, um Ihre KI-Fähigkeiten weiter auszubauen.
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
           <Button
-            onClick={() => window.location.href = 'mailto:info@liitu.ch?subject=KI-Score-Analyse%20Auswertung'}
+            onClick={() => window.location.href = 'mailto:info@liitu.ch?subject=KI-Score%20Auswertung'}
             className="flex-1"
           >
             Beratungsgespräch vereinbaren
