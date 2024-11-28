@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Make AI Happen - KI-Check für Organisationen
 
-## Getting Started
+Ein interaktives Tool zur Bewertung der KI-Transformationsreife von Organisationen. Entwickelt mit Next.js, React und Tailwind CSS.
 
-First, run the development server:
+![Make AI Happen Logo](/public/images/logo.png)
 
+## 🎯 Über das Projekt
+
+Make AI Happen unterstützt Organisationen dabei, ihre Position im KI-Transformationsprozess zu bestimmen. Durch eine strukturierte Selbsteinschätzung ermitteln Organisationen ihren KI-Score und erhalten einen Vergleich mit anderen Organisationen.
+
+### ✨ Features
+
+- **4-Phasen-Analyse**: Umfassende Bewertung des KI-Reifegrads
+- **Interaktiver Check**: Einfache Ja/Nein-Fragen zur schnellen Selbsteinschätzung
+- **Vergleichsanalyse**: Benchmark mit anderen Organisationen
+- **Sofortige Auswertung**: Detaillierte Visualisierung der Ergebnisse
+- **Share-Funktionalität**: Teilen der Ergebnisse über verschiedene Kanäle
+
+## 🚀 Technologien
+
+- [Next.js](https://nextjs.org/)
+- [React](https://reactjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [Lucide Icons](https://lucide.dev/)
+
+## 💻 Installation
+
+1. Repository klonen
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/liitu-ch/make-ai-happen.git
+cd make-ai-happen
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Dependencies installieren
+```bash
+npm install
+# oder
+yarn install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Development Server starten
+```bash
+npm run dev
+# oder
+yarn dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Browser öffnen und zu [http://localhost:3000](http://localhost:3000) navigieren
 
-## Learn More
+## 🛠 Projektstruktur
 
-To learn more about Next.js, take a look at the following resources:
+```
+make-ai-happen/
+│
+├── app/                    # Next.js App Router
+├── components/            # React Komponenten
+├── public/               # Statische Assets
+│   └── images/          # Bilder und Icons
+└── styles/              # CSS Styles
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📦 Hauptkomponenten
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `MaturityWizard`: Hauptkomponente für den KI-Check
+- `WelcomeStep`: Willkommensseite mit Einführung
+- `Layout`: Grundlegendes Seiten-Layout
+- `ContactForm`: Formular für Benutzerdetails
 
-## Deploy on Vercel
+## 🔑 Environment Variables
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Erstellen Sie eine `.env.local` Datei im Root-Verzeichnis:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```env
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+```
+
+## 🤝 Beitragen
+
+Beiträge sind willkommen! Bitte lesen Sie unsere Beitragsrichtlinien, bevor Sie einen Pull Request erstellen.
+
+1. Fork des Repositories
+2. Feature Branch erstellen (`git checkout -b feature/AmazingFeature`)
+3. Änderungen committen (`git commit -m 'Add some AmazingFeature'`)
+4. Branch pushen (`git push origin feature/AmazingFeature`)
+5. Pull Request erstellen
+
+## 📝 Lizenz
+
+Dieses Projekt ist unter der MIT Lizenz lizenziert - siehe die [LICENSE](LICENSE) Datei für Details.
+
+## 📧 Kontakt
+
+liitu consulting gmbh - [info@liitu.ch](mailto:info@liitu.ch)
+
+Projektlink: [https://github.com/liitu-ch/make-ai-happen](https://github.com/liitu-ch/make-ai-happen)
+
+## 🙏 Danksagungen
+
+- [Tailwind CSS](https://tailwindcss.com)
+- [shadcn/ui](https://ui.shadcn.com)
+- [Lucide Icons](https://lucide.dev)
